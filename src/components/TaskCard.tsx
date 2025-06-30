@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import type { ITask } from '@/types/type.task';
+import { format } from 'date-fns';
 
 interface IProps {
     task: ITask
@@ -16,7 +17,7 @@ const TaskCard = ({task}: IProps) => {
     })}>
       <h1 className='font-bold text-lg'>{task.title}</h1>
       <p>{task.description}</p>
-      <p>{task.dueDate}</p>
+      <p>{format(new Date(task.dueDate), "PPP")}</p>
       <p>{task.priority}</p>
     </div>
   )

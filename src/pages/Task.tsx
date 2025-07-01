@@ -2,13 +2,14 @@ import AddTaskModal from "@/components/AddTaskModal"
 import TaskCard from "@/components/TaskCard"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import UpdateTaskModal from "@/components/UpdateTaskModal"
-import { selectTask } from "@/redux/features/task/taskSlice"
-import { useAppSelector } from "@/redux/hook"
+import { selectTask, updateFilter } from "@/redux/features/task/taskSlice"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { useState } from "react"
 
 const Task = () => {
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false)
     const tasks = useAppSelector(selectTask)
+    const dispatch = useAppDispatch()
     return (
         <div>
             <div className="mb-10 mt-10">
@@ -16,10 +17,12 @@ const Task = () => {
                 <UpdateTaskModal setIsUpdateModalOpen={setIsUpdateModalOpen} isUpdateModalOpen={isUpdateModalOpen} />
 
                 <div className="flex justify-center mt-5">
-                    <Tabs>
+                    <Tabs defaultValue="all">
                     <TabsList>
-                        <TabsTrigger value="account">Account</TabsTrigger>
-                        <TabsTrigger value="password">Password</TabsTrigger>
+                        <TabsTrigger onClick={() => dispatch(updateFilter('all'))} value="all">All</TabsTrigger>
+                        <TabsTrigger onClick={() => dispatch(updateFilter('low'))} value="low">Low</TabsTrigger>
+                        <TabsTrigger onClick={() => dispatch(updateFilter('medium'))} value="medium">Medium</TabsTrigger>
+                        <TabsTrigger onClick={() => dispatch(updateFilter('high'))} value="high">High</TabsTrigger>
                     </TabsList>
                 </Tabs>
                 </div>

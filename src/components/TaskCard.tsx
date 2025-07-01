@@ -4,8 +4,9 @@ import { format } from 'date-fns';
 import { Checkbox } from './ui/checkbox';
 import { FaTrashAlt } from "react-icons/fa";
 import { deleteTask, toggleCompleteState } from '@/redux/features/task/taskSlice';
-import { useAppDispatch } from '@/redux/hook';
+import { useAppDispatch, useAppSelector } from '@/redux/hook';
 import { FaEdit } from "react-icons/fa";
+import { selectAllUsers } from '@/redux/features/user/userSlice';
 
 
 interface IProps {
@@ -14,8 +15,9 @@ interface IProps {
 
 
 const TaskCard = ({ task}: IProps) => {
-
  const dispatch = useAppDispatch()
+ const users = useAppSelector(selectAllUsers)
+ const assignedUser = users.find((user) => user.id === task.assignedTo)
 
   return (
     <div className={cn('rounded-md p-5 flex items-center justify-between gap-10 bg-secondary border')}>
@@ -25,6 +27,7 @@ const TaskCard = ({ task}: IProps) => {
         <p className='text-sm'><b>Due Date: </b>{format(new Date(task.dueDate), "PPP")}</p>
         <p className='text-sm'><b>Priority: </b> {task.priority}</p>
         <p className='text-sm'><b>Status: </b> {task.isCompleted ? 'Completed' : 'Incompleted'}</p>
+        <p className='text-sm'><b>Assigned To: </b> {assignedUser ? `${assignedUser.firstName} ${assignedUser.lastName}` : 'No one'}</p>
       </div>
       <div className='flex items-center gap-2'>
         <span>

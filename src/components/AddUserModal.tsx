@@ -19,6 +19,7 @@ import {
 } from "./ui/form"
 import { useAppDispatch } from "@/redux/hook"
 import { addUser } from "@/redux/features/user/userSlice"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 
 
 export function AddUserModal() {
@@ -75,17 +76,18 @@ export function AddUserModal() {
 
             {/* user email field */}
             <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input type='email' {...field} value={field.value || ''} placeholder="User Email" />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input type='email' {...field} value={field.value || ''} placeholder="User Email" />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
 
             <DialogFooter className="mt-10">
               <DialogClose asChild>

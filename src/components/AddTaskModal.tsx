@@ -23,14 +23,16 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 import { cn } from "@/lib/utils"
 import { Calendar } from "./ui/calendar"
 import { CalendarIcon } from "lucide-react"
-import { useAppDispatch } from "@/redux/hook"
+import { useAppDispatch, useAppSelector } from "@/redux/hook"
 import { format } from "date-fns"
 import { addTask } from "@/redux/features/task/taskSlice"
+import { selectAllUsers } from "@/redux/features/user/userSlice"
 
 export function AddTaskModal() {
   const form = useForm()
 
   const dispatch = useAppDispatch()
+  const users = useAppSelector(selectAllUsers)
 
   const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
     dispatch(addTask(data))
@@ -142,6 +144,34 @@ export function AddTaskModal() {
                       />
                     </PopoverContent>
                   </Popover>
+                </FormItem>
+              )}
+            />
+
+            {/* assigned user */}
+            <FormField
+              control={form.control}
+              name="assignedTo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Assigned To</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select User" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup>
+                          {users.length > 0 && users.map((user, index) => {
+                              return <SelectItem key={index} value={user.id}>{`${user.firstName} ${user.lastName}`}</SelectItem>
+                          })}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
                 </FormItem>
               )}
             />

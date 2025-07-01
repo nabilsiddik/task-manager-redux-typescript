@@ -10,18 +10,19 @@ interface InitialState {
 const initialTask: InitialState = {
     tasks: [
         {
-            id: '1',
+            id: 'sdfsdf',
             title: 'Title',
             description: 'Description',
             dueDate: '13 jan 2025',
             isCompleted: false,
             priority: 'high',
+            assignedTo: '1'
         }
     ],
     filter: 'all'
 }
 
-type DraftTask = Pick<ITask, "title" | "description" | "dueDate" | "priority">
+type DraftTask = Pick<ITask, "title" | "description" | "dueDate" | "priority" | 'assignedTo'>
 
 // Create task with id and isCompleted
 const createTask = (taskData: DraftTask): ITask => {

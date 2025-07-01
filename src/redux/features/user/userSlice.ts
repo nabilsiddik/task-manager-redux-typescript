@@ -9,10 +9,17 @@ interface InitialUserState {
 const initialUserState: InitialUserState = {
     users: [
         {
+            id: '1',
             firstName: 'Nabil',
             lastName: 'Siddik',
             email: 'nabilsiddik90@gmail.com'
-        }
+        },
+        {
+            id: '2',
+            firstName: 'Akram',
+            lastName: 'Najib',
+            email: 'akramnajib90@gmail.com'
+        },
     ]
 }
 

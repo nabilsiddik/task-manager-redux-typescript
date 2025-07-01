@@ -10,12 +10,10 @@ import { FaEdit } from "react-icons/fa";
 
 interface IProps {
   task: ITask,
-  setIsUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isUpdateModalOpen: boolean
 }
 
 
-const TaskCard = ({ task, setIsUpdateModalOpen, isUpdateModalOpen }: IProps) => {
+const TaskCard = ({ task}: IProps) => {
 
  const dispatch = useAppDispatch()
 
@@ -38,9 +36,7 @@ const TaskCard = ({ task, setIsUpdateModalOpen, isUpdateModalOpen }: IProps) => 
           dispatch(toggleCompleteState(task.id))
         }} className='cursor-pointe' id="terms" />
         <span>
-          <FaEdit onClick={()=> {
-            setIsUpdateModalOpen(!isUpdateModalOpen)
-          }} className='cursor-pointer' />
+          <FaEdit className='cursor-pointer' />
         </span>
       </div>
     </div>

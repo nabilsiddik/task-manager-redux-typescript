@@ -27,9 +27,13 @@ import { useAppDispatch } from "@/redux/hook"
 import { format } from "date-fns"
 import { addTask } from "@/redux/features/task/taskSlice"
 
-export function AddTaskModal() {
-  const form = useForm()
+interface UpdateTaskModalProps {
+  isUpdateModalOpen: boolean;
+  setIsUpdateModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+export function UpdateTaskModal({isUpdateModalOpen, setIsUpdateModalOpen}: UpdateTaskModalProps) {
+  const form = useForm()
   const dispatch = useAppDispatch()
 
   const onSubmit: SubmitHandler<FieldValues> = (data: any) => {
@@ -37,16 +41,10 @@ export function AddTaskModal() {
   }
 
   return (
-    <Dialog>
-      <div className="flex justify-center">
-        <DialogTrigger asChild>
-          <Button variant="outline">Add Task</Button>
-        </DialogTrigger>
-      </div>
-
+    <Dialog open={isUpdateModalOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="text-center">Add a Task</DialogTitle>
+          <DialogTitle className="text-center">Update Task</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -148,7 +146,9 @@ export function AddTaskModal() {
 
             <DialogFooter className="mt-5">
               <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button onClick={()=> {
+                  setIsUpdateModalOpen(!isUpdateModalOpen)
+                }} variant="outline">Cancel</Button>
               </DialogClose>
               <Button type="submit">Add Task</Button>
             </DialogFooter>
@@ -159,4 +159,4 @@ export function AddTaskModal() {
   )
 }
 
-export default AddTaskModal
+export default UpdateTaskModal
